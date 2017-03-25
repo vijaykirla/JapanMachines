@@ -1,0 +1,104 @@
+﻿
+@model List<JapanUsedMachines.Core.Machine>
+@{
+    var user = Session["user"] as JapanUsedMachines.Models.UserModel;
+}
+
+<div id="container">
+    <div class="view-controls-list" id="viewcontrols">
+        <label>view :</label>
+        <!-- <a class="gridview"><i class="glyphicon glyphicon-th"></i></a> -->
+        <a class="listview active"><i class="glyphicon glyphicon-th-list"></i></a>
+    </div>
+    <div class="clearfix"></div>s
+
+    @if (Model.Count() > 0)
+    {
+        <ul class="list">
+            @{
+                foreach (var item in Model)
+                {
+                    var machinTypes = ViewBag.LoadManchineTypes as List<SelectListItem>;
+                    var machineName = machinTypes.Find(p => p.Value == item.MachineType).Text;
+
+                    var manufacturerNames = ViewBag.LoadManufacturers as List<SelectListItem>;
+                    var manufacturer = manufacturerNames.Find(p => p.Value == item.Manufacturer).Text;
+
+
+
+                    <a href="@Url.Action("MachineDetails", "Machine", new { Id = item.ID })">
+                        <li>
+                            <img src="~/MachineImages/@item.MachinePic1" title="" alt="" />
+                            <section class="list-left">
+                                <h5 class="title">@machineName</h5>
+                                <div class="table-responsive" style="margin-top:15px;">
+                                    <table class="table inv-table">
+                                        <thead>
+                                            <tr class="">
+                                                <th>Manufacturer</th>
+                                                <th>Machine ID</th>
+                                                <th>Model</th>
+                                                <th>Year</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="pt10">
+                                                <td>@manufacturer</td>
+                                                <td>#@item.MachineId</td>
+                                                <td>@item.Model</td>
+                                                <td>@item.Year</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <span class="adprice">$@item.Price</span>
+                            </section>
+
+                            <section class="list-right">
+                                @if (user != null && user.IsUserAuthenticated)
+                                {
+                                    <a class="inv-btn" href="@Url.Action("EditMachine", "Machine", new { Id = item.ID })">Edit</a>
+                                    <a class="inv-btn" href="#" data-toggle="modal" data-target="#myModal">Delete</a>
+                                                                    <!-- Modal -->
+                                                                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                                            <div class="modal-dialog" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                                        <h4 class="modal-title" id="myModalLabel">Confirmation</h4>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <h2>Are you Sure?</h2>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <a class="inv-btn" href="@Url.Action("DeleteMachine", "Machine", new { Id = item.ID, MachineId = item.MachineId })">Continue</a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                }
+                                else
+                                {
+                                    <a class="inv-btn hvr-bounce-to-right scroll" href="#contact" data-toggle="modal" data-target="#myModal">Available</a>
+                                    <a href="" title="Play" class="inv-play"><i class="glyphicon glyphicon-play-circle"></i></a>
+
+                                }
+
+                            </section>
+                            <div class="clearfix"></div>
+
+                        </li>
+                    </a>
+
+                }
+            }
+        </ul>
+                }
+                else
+                {
+
+                    <h4 class="text-info">Ooops! no machines found</h4>
+
+                }
+</div>
+

@@ -1,0 +1,313 @@
+﻿
+@model List<JapanUsedMachines.Core.Machine>
+@{
+    Layout = null;
+    
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Japan-Used-Machines</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="japanusedmachines, usedmachines, japan" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!--Custom Theme files-->
+    <link href="~/Content/bootstrap.css" type="text/css" rel="stylesheet" media="all">
+    <link href="~/Content/style.css" type="text/css" rel="stylesheet" media="all">
+    <link href="~/Content/index.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/Content/bootstrap-select.css" rel="stylesheet" type="text/css" media="all">
+    <link rel="stylesheet" href="~/Content/swipebox.css">
+    <!--web-fonts-->
+    <link rel="stylesheet" href="~/Content/inventory.css" type="text/css" media="all">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,600" rel="stylesheet">
+    <!--//web-fonts-->
+    <!--//Custom Theme files-->
+    <!--js-->
+    <script src="~/scripts/jquery-1.11.1.min.js"></script>
+    <!--//js-->
+
+    <script type="text/javascript" src="~/scripts/tabs.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="~/scripts/bootstrap.min.js"></script>
+    <script src="~/scripts/bootstrap-select.js"></script>
+
+
+
+
+    <script type="text/javascript" src="~/scripts/jquery.min.js"></script>
+    <!--start-smooth-scrolling-->
+    <script type="text/javascript" src="~/scripts/move-top.js"></script>
+    <script type="text/javascript" src="~/scripts/easing.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+
+                $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+            });
+        });
+    </script>
+    <!--//end-smooth-scrolling-->
+</head>
+<body>
+    <!--banner-->
+    <div class="inventory">
+        <div class="header">
+            <!--header-->
+            <div class="container">
+                <nav class="navbar navbar-default">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <h1><a href="@Url.Action("Index","Home")"><img src="~/images/jum-logo2.png" class="brand"></a></h1>
+                    </div>
+                    <!--navbar-header-->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="@Url.Action("Index","Home")">Home</a></li>
+                            <li><a href="#about" class="scroll">About</a></li>
+                            <li><a href="#gallery" class="scroll">Gallery</a></li>
+                            <li><a href="@Url.Action("ListOfMachines","Machine")" class="active">Inventory</a></li>
+                            <li><a href="#contact" class="scroll">Contact Us</a></li>
+                        </ul>
+                        <div class="clearfix"> </div>
+                    </div>
+                </nav>
+            </div>
+            <div class="cd-main-header">
+                <ul class="cd-header-buttons">
+                    <li><a class="cd-search-trigger" href="#cd-search"> <span></span></a></li>
+
+                </ul> <!-- cd-header-buttons -->
+            </div>
+            <div id="cd-search" class="cd-search">
+                <form action="#" method="post">
+                    <input name="Search" type="search" placeholder="Search...">
+                </form>
+            </div>
+        </div>
+        <!--//header-->
+        <!--banner-text-->
+        <div class="inventory-text">
+            <!--banner Slider starts Here-->
+            <script src="~/scripts/responsiveslides.min.js"></script>
+
+            <!--//End-slider-script-->
+            <div id="top" class="callbacks_container">
+                <ul class="rslides" id="slider3">
+                    <li>
+                        <h2>Lorem Ipsum is simply dummy text </h2>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+                        <!-- <a class="more hvr-bounce-to-right" href="#" data-toggle="modal" data-target="#myModal">Check Now</a> -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--//banner-text-->
+    </div>
+    <!--//banner-->
+
+    <div class="clearfix"></div>
+    <div class="container">
+        <div class="select-box">
+            <div class="select-city-for-local-ads ads-list">
+                <label>Choose Machine</label>
+                @Html.DropDownList("MachineTypes", ViewBag.LoadManchineTypes as List<SelectListItem>,"Select Machine Type")
+            </div>
+
+            <div class="browse-category ads-list">
+                <label>Select Manufacturer</label>
+                @Html.DropDownList("Manufacturers", ViewBag.LoadManufacturers as List<SelectListItem>, "Select Manufacturer")
+            </div>
+            <div class="search-product ads-list">
+                <label>Search by Machine ID</label>
+                <div class="search">
+                    <div id="custom-search-input">
+                        <div class="input-group">
+                            <input type="text" class="form-control input-lg" placeholder="Machine ID" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-info btn-lg" type="button">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <ol class="breadcrumb" style="margin-bottom: 5px;">
+            <li><a href="index.html">Home</a></li>
+            <li class="active">Inventory</li>
+        </ol>
+        <div class="ads-grid">
+            <div class="ads-display col-md-12">
+                <div class="wrapper">
+                    <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+
+                        <div id="myTabContent" class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                                <div id="divMachinesList">
+                                    @Html.Partial("_MachinesList",Model)
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    </div>
+
+    <!--contact-->
+    <div class="contact" id="contact">
+        <div class="container">
+            <div class="title">
+                <h3>Contact</h3>
+                <p>Duis euismod massa ut sem fringilla blandit. Proin vel enim nec ipsum finibus. </p>
+            </div>
+            <div class="contact-grids">
+                <div class="col-md-5 address">
+                    <h4>Contact Info</h4>
+                    <div class="address-row">
+                        <div class="col-md-2 address-left">
+                            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-10 address-right">
+                            <h5>Visit Us</h5>
+                            <p>Japan Used Machines<br>Rajgroup Pvt.Ltd.<br>2nd Floor, Oote Building, Toranomon 3-19-7, 2F</p>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="address-row">
+                        <div class="col-md-2 address-left">
+                            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-10 address-right">
+                            <h5>Mail Us</h5>
+                            <a href="mailto: info@japanusedmachines.com"> info@japanusedmachines.com</a>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="address-row">
+                        <div class="col-md-2 address-left">
+                            <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-10 address-right">
+                            <h5>Call Us</h5>
+                            <a href="tel:+81-90-8308-5085 javascript:void(0);">Tel: +81-90-8308-5085</a><br>
+                            <a href="tel:(502)-6586-584 javascript:void(0);">Phone: (502)-6586-584</a>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+                <div class="col-md-7 contact-form">
+                    <form method="post" name="contact" action="send_form_email.php">
+                        <input type="text" name="first_name" placeholder="First Name">
+                        <input class="email" name="last_name" type="text" placeholder="Last Name">
+                        <input type="text" name="telephone" placeholder="Mobile Number">
+                        <input class="email" name="email" type="text" placeholder="Email">
+                        <textarea name="comments" placeholder="Message"></textarea>
+                        <input type="submit" value="Submit">
+                    </form>
+
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+    <!--//contact-->
+    <!--map-->
+    <div class="map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d810.39688970804!2d139.74581114788293!3d35.66253199633937!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1473576897196" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+    </div>
+    <!--//map-->
+    <!--footer-->
+    <div class="footer">
+        <div class="container">
+            <div class="footer-left">
+                <p>© 2016 japanusedmachines | All rights reserved</p>
+            </div>
+            <div class="footer-right social-icons">
+                <ul>
+                    <li><a href="#"> </a></li>
+                    <li><a href="https://www.facebook.com/japanusedmachines/" target="_blank" title="facebook" class="fb"> </a></li>
+                    <li><a href="#" class="gp"> </a></li>
+                    <li><a href="#" class="drb"> </a></li>
+                </ul>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+    <!--//footer-->
+    <!--smooth-scrolling-of-move-up-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /*
+			var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear'
+			};
+			*/
+
+            $().UItoTop({ easingType: 'easeOutQuart' });
+
+        });
+    </script>
+    <!--//smooth-scrolling-of-move-up-->
+    <!-- Include jQuery & Filterizr -->
+    <script src="~/scripts/jquery.filterizr.js"></script>
+    <script src="~/scripts/controls.js"></script>
+    <!-- Kick off Filterizr -->
+    <script type="text/javascript">
+        $(function () {
+            //Initialize filterizr with default options
+            $('.filtr-container').filterizr();
+        });
+    </script>
+    <!--//gallery-->
+    <!-- swipe box js -->
+    <script src="~/scripts/jquery.swipebox.min.js"></script>
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $(".swipebox").swipebox();
+        });
+    </script>
+    <!-- //swipe box js -->
+    <!--search jQuery-->
+    <script src="~/scripts/main.js"></script>
+    <!--//search jQuery-->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="~/scripts/bootstrap.js"></script>
+
+   <script type="text/javascript">
+       $('#MachineTypes').change(function () {        
+           var machineType = $('#MachineTypes').val();
+       $("#divMachinesList").load('@(Url.Action("GetMachineTypes","Machine",null, Request.Url.Scheme))?OperationName=MachineType&listType=' + machineType);
+
+       });
+
+       $('#Manufacturers').change(function () {
+           var manufacturer = $('#Manufacturers').val();
+           $("#divMachinesList").load('@(Url.Action("GetMachineTypes","Machine",null, Request.Url.Scheme))?OperationName=Manufacturer&listType=' + manufacturer);
+
+       });
+
+    </script>
+
+
+
+</body>
+</html>
