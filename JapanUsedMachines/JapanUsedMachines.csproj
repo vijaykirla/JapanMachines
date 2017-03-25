@@ -266,7 +266,6 @@
     <Content Include="images\social-icons.png" />
     <Content Include="images\testimonials.jpg" />
     <Content Include="MachineImages\bolts.jpg" />
-    <Content Include="Packages\Readme.txt" />
     <Content Include="Scripts\bars.js" />
     <Content Include="Scripts\bootstrap-select.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -357,6 +356,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Packages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
