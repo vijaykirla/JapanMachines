@@ -1,4 +1,5 @@
 ﻿using JapanUsedMachines.Core.interfaces;
+using JapanUsedMachines.Filters;
 using JapanUsedMachines.Infrastructure.Repositories;
 using JapanUsedMachines.Models;
 using System;
@@ -10,6 +11,7 @@ using System.Web.Mvc;
 
 namespace JapanUsedMachines.Controllers
 {
+    [Error]
     public class MachineController : Controller
     {
         private IMachineRepository _IMachineRepository = new MachineRepository();

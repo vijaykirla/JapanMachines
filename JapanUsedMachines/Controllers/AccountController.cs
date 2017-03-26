@@ -13,9 +13,11 @@ using JapanUsedMachines.Core;
 using JapanUsedMachines.Core.interfaces;
 using JapanUsedMachines.Infrastructure.Repositories;
 using System.Web.Security;
+using JapanUsedMachines.Filters;
 
 namespace JapanUsedMachines.Controllers
 {
+    [Error]
     [Authorize]
     public class AccountController : Controller
     {
