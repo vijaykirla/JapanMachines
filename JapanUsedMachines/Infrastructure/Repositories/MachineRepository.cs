@@ -21,7 +21,7 @@ namespace JapanUsedMachines.Infrastructure.Repositories
         public void Edit(Machine machine)
         {  
             context.Entry(machine).State = System.Data.Entity.EntityState.Modified;
-            
+            context.SaveChanges();
         }
 
         public Machine FindById(int Id)

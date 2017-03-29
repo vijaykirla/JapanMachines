@@ -98,6 +98,10 @@ namespace JapanUsedMachines.Controllers
             machineModel.Table = machine.TableName;
             machineModel.Description = machine.Description;
             machineModel.Sold = machine.Sold;
+            machineModel.MachinePic1 = machine.MachinePic1;
+            machineModel.MachinePic2 = machine.MachinePic2;
+            machineModel.MachinePic3 = machine.MachinePic3;
+            machineModel.MachinePic4 = machine.MachinePic4;
 
             machineModel.MachineTypes = LoadManchineTypes();
             machineModel.Manufacturers = LoadManufacturers();
@@ -108,7 +112,35 @@ namespace JapanUsedMachines.Controllers
         [HttpPost]
         public ActionResult EditMachine(MachineModel machineModel)
         {
-            var Machine = new JapanUsedMachines.Core.Machine();
+            Core.Machine Machine = _IMachineRepository.FindById(machineModel.ID);
+
+            if (machineModel.files.Count() == 4)
+            {
+                //delete images from image MachineImages folder
+                DirectoryInfo hdDirectoryInWhichToSearch = new DirectoryInfo(Server.MapPath("~/MachineImages"));
+                FileInfo[] filesInDir = hdDirectoryInWhichToSearch.GetFiles("*" + Machine.MachineId + "*.*");
+
+                foreach (FileInfo foundFile in filesInDir)
+                {
+                    System.IO.File.Delete(foundFile.FullName);
+                }
+
+            }
+            //add new machines
+            //saving images
+            if (machineModel.files.Count() == 4)
+            {
+                foreach (var file in machineModel.files)
+                {
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        string filePath = Path.Combine(Server.MapPath("~/MachineImages"), machineModel.MachineId + "-" + file.FileName);
+
+                        file.SaveAs(filePath);
+                    }
+                }
+            }         
+           
             Machine.MachineId = machineModel.MachineId;
             Machine.MachineType = machineModel.MachineType;
             Machine.Manufacturer = machineModel.Manufacturer;
@@ -118,7 +150,13 @@ namespace JapanUsedMachines.Controllers
             Machine.RPM = machineModel.RPM;
             Machine.TableName = machineModel.Table;
             Machine.Description = machineModel.Description;
-            Machine.CreatedDate = DateTime.Now;
+            if (machineModel.files.Count() == 4 )
+            {
+                Machine.MachinePic1 = machineModel.MachineId + "-" + machineModel.files[0].FileName;
+                Machine.MachinePic2 = machineModel.MachineId + "-" + machineModel.files[1].FileName;
+                Machine.MachinePic3 = machineModel.MachineId + "-" + machineModel.files[2].FileName;
+                Machine.MachinePic4 = machineModel.MachineId + "-" + machineModel.files[3].FileName;
+            }           
             Machine.ModifiedDate = DateTime.Now;
             Machine.Sold = machineModel.Sold;
 
@@ -127,6 +165,19 @@ namespace JapanUsedMachines.Controllers
 
         }
 
+        [HttpPost]
+        public JsonResult DeleteImage(string Imagename)
+        {
+            bool isDeleteImage = false;
+            var filename = Server.MapPath("~/MachineImages/" + Imagename);
+            //delete file
+            if ((System.IO.File.Exists(filename)))
+            {
+                System.IO.File.Delete(filename);
+            }
+            isDeleteImage = true;
+            return Json(isDeleteImage,JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult DeleteMachine(int Id,string MachineId)
         {

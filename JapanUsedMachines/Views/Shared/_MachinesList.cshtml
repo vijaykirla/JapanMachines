@@ -58,28 +58,39 @@
                                 @if (user != null && user.IsUserAuthenticated)
                                 {
                                     <a class="inv-btn" href="@Url.Action("EditMachine", "Machine", new { Id = item.ID })">Edit</a>
-                                    <a class="inv-btn" href="#" data-toggle="modal" data-target="#myModal">Delete</a>
-                                                                    <!-- Modal -->
-                                                                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                                                            <div class="modal-dialog" role="document">
-                                                                                <div class="modal-content">
-                                                                                    <div class="modal-header">
-                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                                                        <h4 class="modal-title" id="myModalLabel">Confirmation</h4>
-                                                                                    </div>
-                                                                                    <div class="modal-body">
-                                                                                        <h2>Are you Sure?</h2>
-                                                                                    </div>
-                                                                                    <div class="modal-footer">
-                                                                                        <a class="inv-btn" href="@Url.Action("DeleteMachine", "Machine", new { Id = item.ID, MachineId = item.MachineId })">Continue</a>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+                                    <a class="inv-btn" href="#" data-toggle="modal" data-target="#myModal" style="margin-top:15px;">Delete</a>
+                                        <!-- Modal -->
+                                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            <h4 class="modal-title text-left" id="myModalLabel">Confirmation</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <h2 class="text-left text-danger">Are you Sure?</h2>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="inv-btn" data-dismiss="modal">Cancel</button>
+                                                            <a class="inv-btn" href="@Url.Action("DeleteMachine", "Machine", new { Id = item.ID, MachineId = item.MachineId })">Continue</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                 }
                                 else
                                 {
-                                    <a class="inv-btn hvr-bounce-to-right scroll" href="#contact" data-toggle="modal" data-target="#myModal">Available</a>
+                                    string avialabilty = string.Empty;
+                                    if (item.Sold)
+                                    {
+                                        avialabilty = "Sold";
+                                    }
+                                    else
+                                    {
+                                        avialabilty = "Available";
+                                    }
+
+                                    <a class="inv-btn hvr-bounce-to-right scroll" href="#contact" data-toggle="modal" data-target="#myModal">@avialabilty</a>
                                     <a href="" title="Play" class="inv-play"><i class="glyphicon glyphicon-play-circle"></i></a>
 
                                 }
@@ -97,7 +108,20 @@
                 else
                 {
 
-                    <h4 class="text-info">Ooops! no machines found</h4>
+                    
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">&nbsp;</h4>
+                            </div>
+                            <div class="modal-body">
+                                <h2 class="text-danger">Ooops! no machines found…</h2>
+                            </div>
+                            <div class="modal-footer">
+                                <p></p>&nbsp;
+                            </div>
+                        </div>
+                    </div>
 
                 }
 </div>

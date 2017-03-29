@@ -340,7 +340,7 @@ body a:hover{
     padding: 25px;
 }
 .banner-text  h2, .inventory-text h2, .banner-text  h3, .inventory-text h3 {
-    font-size: 3.5em;
+    font-size: 2.5em;
     color: #fff;
     /* line-height: 1.8em; */
     letter-spacing: 2px;
@@ -493,12 +493,7 @@ body a:hover{
 .modal-body {
     padding: 2em;
 }
-.modal-content {
-    background-color: #5F9EA0;
-}
-.modal-dialog {
-    margin: 10em auto 0;
-}
+
 .bnr-modal .modal-header {
     border: none;
     min-height: 2.5em;
@@ -630,7 +625,7 @@ body a:hover{
 	position:relative;
 }
 p {
-    font-size: 1.2em;
+    font-size: 17px;
     color: #999;
     /* line-height: 1.8em; */
 }
@@ -952,7 +947,7 @@ p {
     margin-bottom: .4em;
 }
 .address p {
-    font-size: 0.9em;
+    font-size: 1em;
 }
 .address p a {
     color: #446dde; /* #FE7200; */
@@ -1255,7 +1250,7 @@ p {
     margin-top: 1.5em;
 }
 .title h3 {
-    width: 23%;
+    width: 43%;
     font-size: 3.2em;
 }
 .title h3:before {

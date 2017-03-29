@@ -437,14 +437,16 @@
                     </div>
                 </div>
                 <div class="col-md-7 contact-form">
-                    <form method="post" name="contact" action="send_form_email.php">
-                        <input type="text" name="first_name" placeholder="First Name">
-                        <input class="email" name="last_name" type="text" placeholder="Last Name">
-                        <input type="text" name="telephone" placeholder="Mobile Number">
-                        <input class="email" name="email" type="text" placeholder="Email">
-                        <textarea name="comments" placeholder="Message"></textarea>
-                        <input type="submit" value="Submit">
+                    
+                    <form method="post" name="contact">
+                        <input type="text" name="first_name" id="first_name" placeholder="First Name" required>
+                        <input class="email" name="last_name" id="last_name" type="text" placeholder="Last Name" required>
+                        <input type="text" name="telephone" id="telephone" placeholder="Mobile Number" maxlength="10" required>
+                        <input class="email" name="email" id="email" type="text" placeholder="Email" required>
+                        <textarea name="comments" id="comments" placeholder="Message" required></textarea>
+                        <input type="submit" value="Submit" id="btnContact">
                     </form>
+
 
                 </div>
                 <div class="clearfix"> </div>
@@ -478,12 +480,7 @@
     </div>
     <!--//footer-->
     <!-- form reset -->
-    <script type="text/javascript">
-		function submitForm() {
-            document.contact-form.submit();
-            document.contact-form.reset();
-            }
-    </script><!--smooth-scrolling-of-move-up-->
+    <!--smooth-scrolling-of-move-up-->
     <script type="text/javascript">
 		$(document).ready(function() {
 
@@ -496,10 +493,59 @@
 			};
 			*/
 
-			$().UItoTop({ easingType: 'easeOutQuart' });
+		    $().UItoTop({ easingType: 'easeOutQuart' });
+
+
+
+		    $('#btnContact').click(function (e) {
+		        e.preventDefault();
+		        ///valiation
+		        var firstName = $('#first_name').val();
+		        var lastname = $('#last_name').val();
+		        var mobile = $('#telephone').val();
+		        var email = $('#email').val();
+		        var message = $('#comments').val();
+
+		        if (firstName == '' || lastname == '' || mobile == '' || email == '' || message == '')
+		            return;
+
+		        var contact = {
+		            FirstName: $('#first_name').val(), LastName: $('#last_name').val(),
+		            MobileNumber: $('#telephone').val(), Email: $('#email').val(), Message: $('#comments').val()
+		               };
+
+		        $.ajax({
+		            type: "POST",
+		            url: '@Url.Action("Contact", "Home")',
+		            contentType: "application/json; charset=utf-8",
+		            data: JSON.stringify(contact),
+		            dataType: "json",
+		            success: function (data) {		                
+		                if (data == true) {
+		                    alert('Your enquiry is submitted successfully');
+		                }
+		                else
+		                {
+		                    alert('Your enquiry not submitted. Please try again later');
+		                }
+		                $('#first_name').val(''); $('#last_name').val('');
+		                $('#telephone').val(''); $('#email').val(''); $('#comments').val('');
+		                
+		            },
+		            error: function (jqXHR, exception)
+		            {
+		                //alert(exception);
+		                //alert('Error occured while processing your request');
+		            }
+		        });
+		    });
+
+		 
+
+
 
 		});
-
+       
     </script>
     <!--//smooth-scrolling-of-move-up-->
     <!-- Include jQuery & Filterizr -->

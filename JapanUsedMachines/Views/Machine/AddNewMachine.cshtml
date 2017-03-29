@@ -1,337 +1,123 @@
 ﻿@model JapanUsedMachines.Models.MachineModel
 @{
     string Operation = string.Empty;
-    Layout = null;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="japanusedmachines, usedmachines, japan" />
-    <title>Japan-Used-Machines</title>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="col-sm-12 log-form">
+            @if (!string.IsNullOrEmpty(Model.MachineId))
+            {
+                Operation = "EditMachine";
+            }
+            else
+            {
+                Operation = "AddNewMachine";
+            }
 
-    <!-- <form action="http://www.japanusedmachines.com/" method="get">
-        <input type="text" name="q"
-        <input type="submit" value="search here">
-    </form> -->
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-    <!--Custom Theme files-->
-    <link href="~/Content/bootstrap.css" type="text/css" rel="stylesheet" media="all">
-    <link href="~/Content/style.css" type="text/css" rel="stylesheet" media="all">
-    <link href="~/Content/index.css" rel="stylesheet" type="text/css" media="all" />
-    <!-- <link rel="stylesheet" href="css/gse.css" type="text/css" media="all"> -->
-    <link rel="stylesheet" href="~/Content/swipebox.css">
-    <link rel="stylesheet" href="~/Content/gse.css">
-    <!--//Custom Theme files-->
-    <!--js-->
-    <script src="~/Scripts/jquery-1.11.1.min.js"></script>
-    <!--//js-->
-    <!--web-fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,600" rel="stylesheet">
-    <!--//web-fonts-->
-    <style>
-        .log-form {
-            margin: 60px 0;
-        }
-    </style>
-    <!--start-smooth-scrolling-->
-    <script type="text/javascript" src="~/Scripts/move-top.js"></script>
-    <script type="text/javascript" src="~/Scripts/easing.js"></script>
-    <script type="text/javascript">
-        jQuery(document).ready(function ($) {
-            $(".scroll").click(function (event) {
-                event.preventDefault();
-
-                $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
-            });
-        });
-
-    </script>
-    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('input[type="checkbox"]').click(function () {
-                if ($(this).is(":checked")) {
-                    var dt = $('#Issold').val(parseInt(1));
-                   // alert("Checkbox is checked." + dt);
-                }
-                else if ($(this).is(":not(:checked)")) {
-                    var dt = $('#Issold').val(parseInt(0));
-                   // alert("Checkbox is unchecked." + dt);
-                }
-            });
-        });
-    </script>
-    <!--//end-smooth-scrolling-->
-
-</head>
-
-<body>
-    <!--banner-->
-    <div class="inventory">
-        <div class="header">
-            <!--header-->
-            <div class="container">
-                <nav class="navbar navbar-default">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <h1><a href="@Url.Action("Index","Home")"><img src="~/images/jum-logo2.png" class="brand"></a></h1>
-                    </div>
-                    <!--navbar-header-->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="@Url.Action("Index","Home")" class="active">Home</a></li>
-                            <li><a href="#about" class="scroll">About</a></li>
-                            <li><a href="#gallery" class="scroll">Gallery</a></li>
-                            <li><a href="@Url.Action("ListOfMachines","Machine")">Inventory</a></li>
-                            <li><a href="#contact" class="scroll">Contact Us</a></li>
-                            <li>
-
-                                <!--<span class="search_btn">
-                                    <span></span>
-                                </span>-->
-                                <div class="search_opn trans_pt4s">
-                                    <div>
-                                        <gcse:searchbox-only resultsurl="http://mapmygenome.in/search-results" newwindow="true" queryparametername="q">
-                                    </div>
-                                </div>
-
-
-                            </li>
-                        </ul>
-                        <div class="clearfix"> </div>
-                </nav>
-            </div>
-
-            <!-- Use of this code assumes agreement with the Google Custom Search Terms of Service. -->
-            <!-- The terms of service are available at http://www.google.com//cse/docs/tos.html -->
-            <!-- <form name="cse" id="searchbox_demo" action="https://www.google.com/cse">
-              <input type="hidden" name="cref" value="" />
-              <input type="hidden" name="ie" value="utf-8" />
-              <input type="hidden" name="hl" value="" />
-              <input name="q" type="text" size="40" />
-              <input type="submit" name="sa" value="Search" />
-            </form>
-            <script type="text/javascript" src="https%3A%2F%2Fcse.google.com%2Fcse/tools/onthefly?form=searchbox_demo&lang="></script> -->
-            </ul> <!-- cd-header-buttons -->
-        </div>
-
-        <!--//header-->
-        <!--banner-text-->
-        <div class="inventory-text">
-            <!--banner Slider starts Here-->
-            <script src="~/Scripts/responsiveslides.min.js"></script>
-
-            <!--//End-slider-script-->
-            <div id="top" class="callbacks_container">
-                <ul class="rslides" id="slider3">
-                    <li>
-                        <h2>Welcome to your One-Stop to Japan Used Machinery</h2>
-                        <p>We are exporters of used machinery from Japan</p>
-                        <!-- <a class="more hvr-bounce-to-right" href="#" data-toggle="modal" data-target="#myModal">Check Now</a> -->
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!--//banner-text-->
-    </div>
-    <!--//banner-->
-    <div class="row">
-        <div class="col-md-12 col-sm-12">
-            <div class="col-sm-12 log-form">
- @if (!string.IsNullOrEmpty(Model.MachineId))
- {
-     Operation = "EditMachine";
- }
- else
- {
-     Operation = "AddNewMachine";
- }
-
-@using (Html.BeginForm(Operation, "Machine", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form form-horizontal col-sm-5 col-sm-push-4" }))
-{
+            @using (Html.BeginForm(Operation, "Machine", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form form-horizontal col-sm-5 col-sm-push-4" }))
+            {
 
                     <!--<form class="form form-horizontal col-sm-5 col-sm-push-4" method="post" action="http://localhost:19001/api/japanusedmachines" enctype="multipart/form-data">-->
-    <div class="form-group">
-        <label for="emailAddress" class="col-sm-3">Machine ID:</label>
-        <div class="col-sm-8">
-            @Html.TextBoxFor(p=>p.MachineId,new {@class= "form-control" ,required = "required" })
-            
-        </div>
-    </div>
+                <div class="form-group">
+                    <label for="emailAddress" class="col-sm-4">Machine ID:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(p => p.MachineId, new { @class = "form-control", required = "required" })
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="col-sm-4">Machine Type:</label>
+                    <div class="col-sm-8">
+                        @Html.DropDownListFor(p => p.MachineType, new SelectList(Model.MachineTypes, "Value", "Text"), new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="col-sm-4">Manufacturer:</label>
+                    <div class="col-sm-8">
+                        @Html.DropDownListFor(p => p.Manufacturer, Model.Manufacturers, new { @class = "form-control" })
+                    </div>
+                </div>
 
                     <div class="form-group">
-                        <label for="password" class="col-sm-3">Machine Type:</label>
+                        <label for="password" class="col-sm-4">Price:</label>
                         <div class="col-sm-8">
-                            @Html.DropDownListFor(p => p.MachineType, new SelectList(Model.MachineTypes, "Value", "Text"), new { @class = "form-control" })
+                            @Html.TextBoxFor(p => p.Price, new { @class = "form-control" })
+
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="password" class="col-sm-3">Manufacturer:</label>
+                        <label for="password" class="col-sm-4">Model:</label>
                         <div class="col-sm-8">
-                            @Html.DropDownListFor(p => p.Manufacturer, Model.Manufacturers, new { @class = "form-control" })
+                            @Html.TextBoxFor(p => p.Model, new { @class = "form-control", required = "required" })
+
+
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="password" class="col-sm-3">Price:</label>
+                        <label for="password" class="col-sm-4">Year:</label>
                         <div class="col-sm-8">
-                            @Html.TextBoxFor(p => p.Price, new { @class= "form-control" })
-                            
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password" class="col-sm-3">Model:</label>
-                        <div class="col-sm-8">
-                            @Html.TextBoxFor(p => p.Model, new { @class = "form-control" ,required= "required" })
-                            
-                           
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password" class="col-sm-3">Year:</label>
-                        <div class="col-sm-8">
-                            @Html.TextBoxFor(p => p.Year, new { @class = "form-control", required = "required" })                           
+                            @Html.TextBoxFor(p => p.Year, new { @class = "form-control", required = "required" })
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="password" class="col-sm-3">RPM:</label>
+                        <label for="password" class="col-sm-4">RPM:</label>
                         <div class="col-sm-8">
                             @Html.TextBoxFor(p => p.RPM, new { @class = "form-control", required = "required" })
-                           
+
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="password" class="col-sm-3">Table :</label>
+                        <label for="password" class="col-sm-4">Table :</label>
                         <div class="col-sm-8">
                             @Html.TextBoxFor(p => p.Table, new { @class = "form-control", required = "required" })
-                           
+
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="password" class="col-sm-3">Description :</label>
+                        <label for="password" class="col-sm-4">Description :</label>
                         <div class="col-sm-8">
                             @Html.TextAreaFor(p => p.Description, new { @class = "form-control" })
-                            
+
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="password" class="col-sm-3">Machine Pictures</label>
+                        <label for="password" class="col-sm-4">Machine Pictures</label>
                         <div class="col-sm-8">
-                            @Html.TextBoxFor(p => p.files, "", new { @type = "file", @multiple = "multiple" ,@class= "form-control" })
-                            
+                            @Html.TextBoxFor(p => p.files, "", new { @type = "file", @multiple = "multiple", @class = "form-control" })
+
                         </div>
                     </div>
-                    
+
 
                     <div class="form-group">
-                        <label for="password" class="col-sm-3">Sold:</label>
-                        <div class="col-sm-8">                           
-                            @Html.CheckBoxFor(p => p.Sold, new { @class= "form-control" })
+                        <label for="password" class="col-sm-4">Sold:</label>
+                        <div class="col-sm-8">
+                            @Html.CheckBoxFor(p => p.Sold, new { @class = "form-control" })
                             <input type="hidden" id="Issold" name="Issold" />
                         </div>
                     </div>
                     <div>
-                        @Html.HiddenFor(p=>p.hiddenMachineText)
-                        @Html.HiddenFor(p=>p.hiddenManufacturerText)
+                        @Html.HiddenFor(p => p.hiddenMachineText)
+                        @Html.HiddenFor(p => p.hiddenManufacturerText)
                     </div>
                     <div class="form-group">
-                        <label for="text" class="col-sm-3"></label>
-                        <div class="col-sm-3">
-                            <input type="submit" class="form-control btn btn-primary" value="@ViewBag.Machine" />
+                        <label for="text" class="col-sm-4"></label>
+                        <div class="col-sm-4">
+                            <input type="submit" class="form-control hvr-bounce-to-right" value="@ViewBag.Machine">
+                           <!-- <input type="submit" class="form-control btn btn-primary"  /> -->
                         </div>
                     </div>
 
-}
-            </div>
+            }
         </div>
     </div>
-
-
-    <!--footer-->
-    <div class="footer">
-        <div class="container">
-            <div class="footer-left">
-                <p>© 2016 japanusedmachines | All rights reserved</p>
-            </div>
-            <div class="footer-right social-icons">
-                <ul>
-                    <li><a href="#"> </a></li>
-                    <li><a href="https://www.facebook.com/japanusedmachines/" target="_blank" title="facebook" class="fb"> </a></li>
-                    <li><a href="#" class="gp"> </a></li>
-                    <li><a href="#" class="drb"> </a></li>
-                </ul>
-                <div class="clearfix"> </div>
-            </div>
-        </div>
-    </div>
-    <!--//footer-->
-    <!-- form reset -->
-    <script type="text/javascript">
-        function submitForm() {
-            document.contact - form.submit();
-            document.contact - form.reset();
-        }
-    </script><!--smooth-scrolling-of-move-up-->
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            $("form").submit(function () {
-                var selTypeText = $("#MachineType option:selected").text();
-                $("#hiddenMachineText").val(selTypeText);
-
-                var selManufacturerTypeText = $("#Manufacturer option:selected").text();
-                $("#hiddenManufacturerText").val(selManufacturerTypeText);
-            });
-        });
-        $(document).ready(function () {
-
-            $().UItoTop({ easingType: 'easeOutQuart' });
-        });
-
-    </script>
-    <!--//smooth-scrolling-of-move-up-->
-    <!-- Include jQuery & Filterizr -->
-    <script src="~/Scripts/jquery.filterizr.js"></script>
-    <script src="~/Scripts/controls.js"></script>
-    <!-- Kick off Filterizr -->
-    <script type="text/javascript">
-        $(function () {
-            //Initialize filterizr with default options
-            $('.filtr-container').filterizr();
-
-        });
-    </script>
-    <!--//gallery-->
-    <!-- swipe box js -->
-    <script src="~/Scripts/jquery.swipebox.min.js"></script>
-    <script type="text/javascript">
-        jQuery(function ($) {
-            $(".swipebox").swipebox();
-        });
-    </script>
-    <!-- //swipe box js -->
-    <!--search jQuery-->
-    <script src="~/Scripts/main.js"></script>
-    <!--//search jQuery-->
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="~/Scripts/bootstrap.js"></script>
-
-</body>
-</html>
+</div>

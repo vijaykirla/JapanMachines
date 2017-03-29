@@ -112,16 +112,6 @@ var elem=$('#container ul');
                     </div>
                 </nav>
             </div>
-            <div class="cd-main-header">
-                <ul class="cd-header-buttons">
-                    <li><a class="cd-search-trigger" href="#cd-search"> <span></span></a></li>
-                </ul> <!-- cd-header-buttons -->
-            </div>
-            <div id="cd-search" class="cd-search">
-                <form action="#" method="post">
-                    <input name="Search" type="search" placeholder="Search...">
-                </form>
-            </div>
         </div>
         <!--//header-->
         <!--banner-text-->
@@ -133,9 +123,8 @@ var elem=$('#container ul');
             <div id="top" class="callbacks_container">
                 <ul class="rslides" id="slider3">
                     <li>
-                        <h2>Lorem Ipsum is simply dummy text </h2>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
-                        <a class="more hvr-bounce-to-right" href="#" data-toggle="modal" data-target="#myModal">Check Now</a>
+                        <h2>Welcome to your One-Stop to Japan Used Machinery</h2>
+                        <p>We are exporters of used machinery from Japan</p>
                     </li>
                 </ul>
             </div>
@@ -249,7 +238,7 @@ var elem=$('#container ul');
         <div class="container">
             <div class="title">
                 <h3>Contact</h3>
-                <p>Duis euismod massa ut sem fringilla blandit. Proin vel enim nec ipsum finibus. </p>
+                <p>Please feel free to contact us with the details specified.</p>
             </div>
             <div class="contact-grids">
                 <div class="col-md-5 address">
@@ -286,13 +275,13 @@ var elem=$('#container ul');
                     </div>
                 </div>
                 <div class="col-md-7 contact-form">
-                    <form action="#" method="post">
-                        <input type="text" name="First Name" placeholder="First Name" required="">
-                        <input class="email" name="Last Name" type="text" placeholder="Last Name" required="">
-                        <input type="text" name="Number" placeholder="Mobile Number" required="">
-                        <input class="email" name="Email" type="text" placeholder="Email" required="">
-                        <textarea name="Message" placeholder="Message" required=""></textarea>
-                        <input type="submit" value="SUBMIT">
+                    <form method="post" name="contact">
+                        <input type="text" name="first_name" id="first_name" placeholder="First Name" required>
+                        <input class="email" name="last_name" id="last_name" type="text" placeholder="Last Name" required>
+                        <input type="text" name="telephone" id="telephone" placeholder="Mobile Number" maxlength="10" required>
+                        <input class="email" name="email" id="email" type="text" placeholder="Email" required>
+                        <textarea name="comments" id="comments" placeholder="Message" required></textarea>
+                        <input type="submit" value="Submit" id="btnContact">
                     </form>
                 </div>
                 <div class="clearfix"> </div>
@@ -309,7 +298,7 @@ var elem=$('#container ul');
     <div class="footer">
         <div class="container">
             <div class="footer-left">
-                <p>© 2016 Japan Used Machines, Rajgroup Pvt.Ltd . All rights reserved</p>
+                <p>© 2017 japanusedmachines.com  |  All rights reserved</p>
             </div>
             <div class="footer-right social-icons">
                 <ul>
@@ -335,7 +324,50 @@ var elem=$('#container ul');
 			};
 			*/
 
-			$().UItoTop({ easingType: 'easeOutQuart' });
+		    $().UItoTop({ easingType: 'easeOutQuart' });
+
+
+		    $('#btnContact').click(function () {
+
+		        ///valiation
+		        var firstName = $('#first_name').val();
+		        var lastname = $('#last_name').val();
+		        var mobile = $('#telephone').val();
+		        var email = $('#email').val();
+		        var message = $('#comments').val();
+
+		        if (firstName == '' || lastname == '' || mobile == '' || email == '' || message == '')
+		            return;
+
+		        var contact = {
+		            FirstName: $('#first_name').val(), LastName: $('#last_name').val(),
+		            MobileNumber: $('#telephone').val(), Email: $('#email').val(), Message: $('#comments').val()
+		               };
+
+		        $.ajax({
+		            type: "POST",
+		            url: '@Url.Action("Contact", "Home")',
+		            contentType: "application/json; charset=utf-8",
+		            data: JSON.stringify(contact),
+		            dataType: "json",
+		            success: function (data) {
+		                if (data == true) {
+		                    alert('Your enquiry is submitted successfully');
+		                }
+		                else {
+		                    alert('Your enquiry not submitted. Please try again later');
+		                }
+		                $('#first_name').val(''); $('#last_name').val('');
+		                $('#telephone').val(''); $('#email').val(''); $('#comments').val('');
+
+		            },
+		            error: function (jqXHR, exception)
+		            {
+		                //alert(exception);
+		                //alert('Error occured while processing your request');
+		            }
+		        });
+		    });
 
 		});
     </script>
